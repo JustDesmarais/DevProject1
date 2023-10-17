@@ -16,32 +16,41 @@
         <h1>Games</h1>
     </header>
 
-    <main>
-        <section> <!--search bar, search button, and user list-->
+    <main class="container">
+        <section class="search-section"> <!--search bar, search button, and user list-->
             <div> <!--search bar and buttons-->
-                <textarea placeholder="Search"></textarea>
-                <button>Search</button>
-            </div>
+                <div>
+                    <h2 class="search-name">Search Game</h2>
+                    <form>
+                        <label class="game-search" for="game">Game Name </label>
+                        <input type="text" name="" id="" placeholder="Game Name" class="search-text">
+                        <button type="submit" class="btn">Search</button>
+                    </form>
+                </div>
+                
+            </div class="game-list">
 
             <div><!--Game list -->
-                <ul> <!--list items to dynamically generate-->                  
+                <ul class="list"> <!--list items to dynamically generate-->       
+                   
+                    
                 </ul>
 
             </div>
         </section>
 
-        <secion> <!--Info on the currently selection game-->
-            <div>
-                <h2>Game Name</h2>
-                <p>countdown timer</p>
+        <secion class="game-section"> <!--Info on the currently selection game-->
+            <div class="game-info">
+                <h2 class="game-name">Game Name</h2>
+                <p class="countdown-timer">countdown timer</p>
             </div>
 
             <div> <!--game image & description - Data to fill in dynamically through API and JS-->
-                <div>
-                    <img src="" alt="game image">
+                <div class="image-section">
+                    <img src="" alt="game image" width="100px" height="100px">
                 </div>
 
-                <div>
+                <div class="description-section">
                     <p>Genre</p>
                     <p>Release Date</p>
                     <p>Game Description</p>
