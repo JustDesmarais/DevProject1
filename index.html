@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>Project #1</title>
+</head>
+
+<body>
+    <header>
+        <h1>Games</h1>
+    </header>
+
+    <main>
+        <section> <!--search bar, search button, and user list-->
+            <div> <!--search bar and buttons-->
+                <textarea placeholder="Search"></textarea>
+                <button>Search</button>
+            </div>
+
+            <div><!--Game list -->
+                <ul> <!--list items to dynamically generate-->                  
+                </ul>
+
+            </div>
+        </section>
+
+        <secion> <!--Info on the currently selection game-->
+            <div>
+                <h2>Game Name</h2>
+                <p>countdown timer</p>
+            </div>
+
+            <div> <!--game image & description - Data to fill in dynamically through API and JS-->
+                <div>
+                    <img src="" alt="game image">
+                </div>
+
+                <div>
+                    <p>Genre</p>
+                    <p>Release Date</p>
+                    <p>Game Description</p>
+                </div>
+            </div>
+
+
+        </secion>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./js/script.js"></script>
+</body>
