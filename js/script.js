@@ -32,12 +32,12 @@ $(function () {
               let gameOption = $('<button>');
 
               gameOption.text(data.results[i].name + ", " + dayjs(data.results[i].released).format('YYYY'));
-              gameOption.attr('data-id', data.results[i].id).attr('class', 'has-text-centered').attr('id', 'game-selector' + [i]);
+              gameOption.attr('data-id', data.results[i].id).attr('class', 'has-text-centered m-1').attr('id', 'game-selector' + [i]);
 
               $('#search-results').append(gameOption);              
             };
 
-            $('#search-results')[0].classList.remove('is-hidden');
+            $('#search-results').slideToggle('slow');
             $('[id*="game-selector"]').click(selectGame);
             console.log($('#search-results'));
         })
@@ -48,8 +48,10 @@ $(function () {
 
   function selectGame (e) {
     e.preventDefault();
+
+    
     $('#game-info').children(2).empty()
-    $('#search-results')[0].classList.add('is-hidden'); 
+    $('#search-results').slideToggle('fast'); 
     let apiURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
 
     fetch(apiURL)
@@ -59,11 +61,15 @@ $(function () {
         .then(function (data) {
             console.log(data);
 
+            let description = data.description.split('</p>');
+
+            console.log(description);
+
             $('h3').text(data.name);
             $('#game-img').attr('src', data.background_image);
-            $('#game-info').children(0).text('Genre: ' + data.genres[0]);
-            $('#game-info').children(1).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
-            $('#game-info').children(2).append(data.description);
+            $('#genre').text('Genre: ' + data.genres[0].name);
+            $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
+            $('#description').append(description.shift() + '</p>');
         })
         .catch(err => {
             console.error(err);
