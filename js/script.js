@@ -2,6 +2,9 @@
 // API Key = 7aa60114ee68416ca8c8f9423e2bd0d3
 // idURL = https://api.rawg.io/api/games/{id}?key=7aa60114ee68416ca8c8f9423e2bd0d3
 
+
+
+
 //test API to keep visible in console
 fetch('https://api.rawg.io/api/games?key=7aa60114ee68416ca8c8f9423e2bd0d3&search=hades')
         .then (function (response) {
@@ -19,21 +22,32 @@ let storedGames = []; //array for stored game data
 // js code wrapper to ensure everything loads properly
 $(function () {
 
+  // function updateTime() {
+  //   var today = dayjs();
+  //   $('#timer').text(today.format('dddd, MMMM D, YYYY h:mm:ss A'));
+  //   const currentDate = dayjs().format('dddd, MMMM D, YYYY h:mm:ss A');
+  // }
+  // setInterval(updateTime, 1000);
+
+
   /**function to pull game data from local storage
    * CAN BE BASE FOR DYNAMICALLY GENERATED GAME LIST
    */
-  function retrieveGameData () {
-    let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
+  // function retrieveGameData () {
+  //   let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
 
-    if (retrievedGames !== null) {
-      storedGames = retrievedGames;
-    } else return;
 
-    console.log(storedGames)
-  }
+  //   if (retrievedGames !== null) {
+  //     storedGames = retrievedGames;
+      
+  //   } else return;
+
+  //   console.log(storedGames)
+  // }
+
   
   // Event listener and function for searching to pull in game options for user
-  $(':button').click(function (e) {
+  $('#search-button').click(function (e) {
     e.preventDefault();
     let apiURL = 'https://api.rawg.io/api/games?key=7aa60114ee68416ca8c8f9423e2bd0d3&search=' + $('input').val();
     $('input').val('');
@@ -64,6 +78,8 @@ $(function () {
         });
     });
 
+    
+
   // Function following click of final game option
   function selectGame (e) {
     e.preventDefault();
@@ -71,24 +87,57 @@ $(function () {
     let apiURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
     $('#search-results').slideToggle('fast'); 
 
+
+ 
+
     fetch(apiURL)
         .then (function (response) {
             return response.json();
         })
         .then(function (data) {
             console.log(data);
-
             let description = data.description.split('</p>');
+            let targetDate = data.released;
+            // var today = dayjs().format('YYYY-MM-DD ');
+            // let days = targetDate.diff(today, 'days');
 
             $('h3').text(gameName);
             $('#game-img').attr('src', data.background_image);
             $('#genre').text('Genre: ' + data.genres[0].name);
             $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').append(description.shift() + '</p>');
+            $('#timer').append(targetDate);
+
+
+
         })
         .catch(err => {
             console.error(err);
         });
+
+
+        $('#add-button').click(function addGamesList (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          const savedSection = document.querySelector('.savedGames');
+          const gameList = document.createElement('div');
+          const listElement = document.createElement('li');
+          const clickButton = document.createElement('button');
+          clickButton.setAttribute('class', 'button is-secondary is-medium m-3');
+
+          // var gameSaved = JSON.parse(localStorage.getItem('gameData'));
+          
+          listElement.appendChild(clickButton).innerHTML = gameName + targetDate;
+          gameList.appendChild(listElement);
+          savedSection.appendChild(gameList);
+          
+  
+        });
+
+       
+
+
+      
 
     // variables and function to add data to local storage
     let gameID = $(this).data('id');
@@ -97,12 +146,27 @@ $(function () {
 
     storedGames.push({gameID, gameRelease, gameName});
     localStorage.setItem('gameData', JSON.stringify(storedGames));
+    document.getElementById("gameInput").value = "";
     console.log(storedGames);
     retrieveGameData();
     $('#search-results').empty();
   }
 
-  retrieveGameData (); // Call function to pull data from local storage
-});
 
-//
+  function retrieveGameData () {
+    let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
+
+
+    if (retrievedGames !== null) {
+      storedGames = retrievedGames;
+      
+    } else return;
+
+    console.log(storedGames)
+  }
+
+
+   
+  retrieveGameData (); // Call function to pull data from local storage
+  // diffDay ();
+});
