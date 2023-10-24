@@ -93,6 +93,7 @@ $(function () {
     $('#search-button').toggleClass('is-hidden');
     $('#cancel-button').toggleClass('is-hidden');
     $('#add-button').prop('disabled', false);
+    $('#timer').empty();
 
     fetch(finalURL)
         .then (function (response) {
@@ -117,7 +118,7 @@ $(function () {
               } 
             }
 
-            $('h3').text(gameName).attr('class', 'active has-text-centered is-size-3 has-text-weight-bold');
+            $('h3').text(data.name).attr('class', 'active has-text-centered is-size-3 has-text-weight-bold');
             $('#game-img').attr('src', data.background_image).attr('class', 'active');
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
@@ -145,8 +146,6 @@ $(function () {
           listElement.appendChild(clickButton).innerHTML = gameName + ' (' + days + ')';
           gameList.appendChild(listElement);
           savedSection.appendChild(gameList);
-          
-  
         });
 
 
@@ -179,6 +178,7 @@ $(function () {
     let favoriteURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
     console.log(favoriteURL);
 
+    $('#timer').empty();
     $('#description').empty();
     $('#add-button').prop('disabled', true);
 
@@ -204,18 +204,18 @@ $(function () {
             } 
           
 
-            $('h3').text(data.name);
-            $('#game-img').attr('src', data.background_image);
-            $('#genre').text('Genre: ' + data.genres[0].name);
-            $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
-            $('#description').append(description.shift() + '</p>');
+            $('h3').text(data.name).attr('class', 'active has-text-centered is-size-3 has-text-weight-bold');
+            $('#game-img').attr('src', data.background_image).attr('class', 'active');
+            $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
+            $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
+            $('#description').attr('class', 'active').append(description.shift() + '</p>');
+            $('#add-button').attr('class', 'button fa-solid fa-heart active').attr('data-id', data.id);
+            $('#timer').attr('class', 'has-text-centered is-size-4 has-text-weight-medium').append(dayAppend);
 
         });
   };
 
-  /**function to pull game data from local storage
-     * CAN BE BASE FOR DYNAMICALLY GENERATED GAME LIST
-     */
+  // function to pull game data from local storage
   function retrieveGameData () {
     $('.savedGames').empty();
     let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
