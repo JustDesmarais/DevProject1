@@ -107,7 +107,7 @@ $(function () {
             let days = Math.abs(targetDate.diff(today, 'day'));
 
             if (dayjs().isAfter(targetDate)){
-              $('#timer').text('Released: ' + days + ' ago');
+              $('#timer').text('Released: ' + days + ' days ago');
             } else if (dayjs().isSame(targetDate)) {
               $('#timer').text('Released: ' + ' TODAY!');
             } else {
@@ -167,7 +167,7 @@ $(function () {
 
 
             if (dayjs().isAfter(targetDate)) {
-              $('#timer').text('Released: ' + days + ' ago');
+              $('#timer').text('Released: ' + days + ' days ago');
             } else if (dayjs().isSame(targetDate)) {
               $('#timer').text('Released: ' + ' TODAY!');
             } else {
@@ -201,18 +201,28 @@ $(function () {
         let targetDate = dayjs(storedGames[i].gameRelease);
         let today = dayjs().format('YYYY-MM-DD');
         let days = Math.abs(targetDate.diff(today, 'day'));
-        let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + days + ' days)');
+        let trackedDays = '';
+
+        if (dayjs().isAfter(targetDate)) {
+          trackedDays = 'Released: ' + days + ' days ago';
+        } else if (dayjs().isSame(targetDate)) {
+          trackedDays = 'Released: ' + ' TODAY!';
+        } else {
+          trackedDays = days + ' Days Until Release!';
+        } 
+
+        let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3 is-size-6 has-text-weight-bold').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + trackedDays + ')');
 
         listElement.append(clickButton);
-        listElement.append($('<span>').attr('data-id', storedGames[i].id).attr('class', 'remove-button button is-hoverable').text('X'));
+        listElement.append($('<span>').attr('data-id', storedGames[i].id).attr('class', 'remove-button button is-size-7').text('X'));
         gameList.append(listElement);
         savedSection.append(gameList);
 
       }
     } else return;
 
-    $('.remove-button').click(removeFavorite);
-    $('[id*="favorite"]').click(favoriteGame);
+    $('.remove-button').click(removeFavorite); //event listener for remove buttons
+    $('[id*="favorite"]').click(favoriteGame); //event listener for clicking on game in favorite section
   }
 
   function removeFavorite (event) {
@@ -227,7 +237,7 @@ $(function () {
         break;
       };
     };
-    
+
     localStorage.setItem('gameData', JSON.stringify(storedGames));
     retrieveGameData ();
     
