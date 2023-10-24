@@ -30,79 +30,7 @@ $(function () {
   // }
   // setInterval(updateTime, 1000);
 
-
-  /**function to pull game data from local storage
-   * CAN BE BASE FOR DYNAMICALLY GENERATED GAME LIST
-   */
-  function retrieveGameData () {
-    $('.savedGames').empty();
-    let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
-
-    if (retrievedGames !== null) {
-      storedGames = retrievedGames;
-
-      for (i = 0; i < storedGames.length; i++) {
-        const savedSection = $('.savedGames');
-        const gameList = $('<div>');
-        const listElement = $('<li>');
-        let targetDate = dayjs(storedGames[i].gameRelease);
-        let today = dayjs().format('YYYY-MM-DD');
-        let days = Math.abs(targetDate.diff(today, 'day'));
-        let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + days + ' days)');
-
-        listElement.append(clickButton);
-        gameList.append(listElement);
-        savedSection.append(gameList);
-      }
-      
-    } else return;
-
-    $('[id*="favorite"]').click(favoriteGame);
-
-  console.log(storedGames)
-  }
-
-  function favoriteGame (e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    let favoriteURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
-    console.log(favoriteURL);
-
-    $('#description').empty();
-
-    fetch(favoriteURL)
-        .then (function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            let description = data.description.split('</p>');
-
-            let targetDate = dayjs(data.released);
-            let today = dayjs().format('YYYY-MM-DD');
-            let days = Math.abs(targetDate.diff(today, 'day'));
-
-
-            if (dayjs().isAfter(targetDate)) {
-              $('#timer').text('Released: ' + days + ' ago');
-            } else if (dayjs().isSame(targetDate)) {
-              $('#timer').text('Released: ' + ' TODAY!');
-            } else {
-              $('#timer').text(days + ' Days Until Release!');
-            } 
-          
-
-            $('h3').text(data.name);
-            $('#game-img').attr('src', data.background_image);
-            $('#genre').text('Genre: ' + data.genres[0].name);
-            $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
-            $('#description').append(description.shift() + '</p>');
-
-        });
-  };
-
-  
+    
   // Event listeners and function for searching to pull in game options for user
   $('#search-button').click(handleSearch);
   $('#search-form').submit(handleSearch);
@@ -157,11 +85,12 @@ $(function () {
     e.preventDefault();
 
     let finalURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
-    
+
     $('#search-results').slideToggle().empty();
     $('#gameInput').val('');
     $('#search-button').toggleClass('is-hidden');
     $('#cancel-button').toggleClass('is-hidden');
+    $('#add-button').prop('disabled', false);
 
     fetch(finalURL)
         .then (function (response) {
@@ -190,29 +119,99 @@ $(function () {
             $('#description').append(description.shift() + '</p>');
             $('#add-button').attr('data-id', data.id);
 
-            $('#add-button').click(storeGames);
-
         })
         .catch(err => {
             console.error(err);
         });
+  };
+ 
+  // function to add elements to favorite list
+  $('#add-button').click(function (event) {    
+    event.stopPropagation();
+    event.preventDefault();
 
-    function storeGames (event) {    
-        event.stopPropagation();
-        event.preventDefault();
+    let gameID = $('#add-button').data('id');
+    let gameRelease = $('#released').data('release');
+    let gameName = $('h3').text();
 
-        let gameID = $('#add-button').data('id');
-        let gameRelease = $('#released').data('release');
-        let gameName = $('h3').text();
+    storedGames.push({gameID, gameRelease, gameName});
+    localStorage.setItem('gameData', JSON.stringify(storedGames));
+    
+    console.log(storedGames);  
+    retrieveGameData();
+  });    
 
-        storedGames.push({gameID, gameRelease, gameName});
-        localStorage.setItem('gameData', JSON.stringify(storedGames));
-        
-        console.log(storedGames);  
-        retrieveGameData();
-    };    
+  function favoriteGame (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    let favoriteURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
+    console.log(favoriteURL);
+
+    $('#description').empty();
+    $('#add-button').prop('disabled', true);
+
+    fetch(favoriteURL)
+        .then (function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            let description = data.description.split('</p>');
+
+            let targetDate = dayjs(data.released);
+            let today = dayjs().format('YYYY-MM-DD');
+            let days = Math.abs(targetDate.diff(today, 'day'));
+
+
+            if (dayjs().isAfter(targetDate)) {
+              $('#timer').text('Released: ' + days + ' ago');
+            } else if (dayjs().isSame(targetDate)) {
+              $('#timer').text('Released: ' + ' TODAY!');
+            } else {
+              $('#timer').text(days + ' Days Until Release!');
+            } 
+          
+
+            $('h3').text(data.name);
+            $('#game-img').attr('src', data.background_image);
+            $('#genre').text('Genre: ' + data.genres[0].name);
+            $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
+            $('#description').append(description.shift() + '</p>');
+
+        });
+  };
+
+  /**function to pull game data from local storage
+     * CAN BE BASE FOR DYNAMICALLY GENERATED GAME LIST
+     */
+  function retrieveGameData () {
+    $('.savedGames').empty();
+    let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
+
+    if (retrievedGames !== null) {
+      storedGames = retrievedGames;
+
+      for (i = 0; i < storedGames.length; i++) {
+        const savedSection = $('.savedGames');
+        const gameList = $('<div>');
+        const listElement = $('<li>');
+        let targetDate = dayjs(storedGames[i].gameRelease);
+        let today = dayjs().format('YYYY-MM-DD');
+        let days = Math.abs(targetDate.diff(today, 'day'));
+        let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + days + ' days)');
+
+        listElement.append(clickButton);
+        gameList.append(listElement);
+        savedSection.append(gameList);
+      }
+      
+    } else return;
+
+    $('[id*="favorite"]').click(favoriteGame);
+
+  console.log(storedGames)
   }
-
 
    
   retrieveGameData (); // Call function to pull data from local storage
