@@ -33,7 +33,7 @@ $(function () {
     
   // Event listeners and function for searching to pull in game options for user
   $('#search-button').click(handleSearch);
-  $('#search-form').submit(handleSearch);
+  $('#gameInput').submit(handleSearch);
     
   function handleSearch(e) {
     e.preventDefault();
@@ -128,26 +128,6 @@ $(function () {
 
             
           console.log(dayAppend);
-          
-
-        $('#add-button').click(function addGamesList (event) {
-          event.stopPropagation();
-          event.preventDefault();
-          
-          const savedSection = document.querySelector('.savedGames');
-          const gameList = document.createElement('div');
-          const listElement = document.createElement('li');
-          const clickButton = document.createElement('button');
-          clickButton.setAttribute('class', 'button is-small is-fullwidth is-info is-outlined mt-3');
-
-          // var gameSaved = JSON.parse(localStorage.getItem('gameData'));
-
-          
-          listElement.appendChild(clickButton).innerHTML = gameName + ' (' + days + ')';
-          gameList.appendChild(listElement);
-          savedSection.appendChild(gameList);
-        });
-
 
         })
         .catch(err => {
@@ -179,6 +159,7 @@ $(function () {
     console.log(favoriteURL);
 
     $('#timer').empty();
+    $('#timer').attr('class', 'has-text-centered is-size-4 has-text-weight-medium');
     $('#description').empty();
     $('#add-button').prop('disabled', true);
 
@@ -210,8 +191,7 @@ $(function () {
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').attr('class', 'active').append(description.shift() + '</p>');
             $('#add-button').attr('class', 'button fa-solid fa-heart active').attr('data-id', data.id);
-            $('#timer').attr('class', 'has-text-centered is-size-4 has-text-weight-medium').append(dayAppend);
-
+            
         });
   };
 
