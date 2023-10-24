@@ -24,7 +24,7 @@
             <div class="py-0 column is-4"> <!--search bar and buttons-->
                 <div class="box">
                     <h2 class="is-size-2 mb-2 has-background-grey has-text-centered">Search Game</h2>
-                    <form>
+                    <form type="submit" id="search-form">
                         <div class="field">
                             <label class="label">Game Name </label>
                                 <div class="control">
@@ -34,13 +34,14 @@
                                     </div>
                                 <div class="control has-text-centered">
                                     <button id="search-button" type="button" class="button is-secondary is-medium mt-3">Search</button>
+                                    <button id="cancel-button" type="button" class="button is-secondary is-medium mt-3 is-hidden">Cancel</button>
                                 </div>
                         </div>
                     </form>
                 </div>
 
                 <div class="box pt-6">
-                   <h2 class="has-text-centered has-background-grey game-saved">Games Saved</h2>
+                   <h2 class="has-text-centered has-background-grey game-saved">Favorites List</h2>
                    <div class="savedGames" id="listSaved">
 
 
