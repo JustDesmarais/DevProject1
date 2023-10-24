@@ -204,18 +204,36 @@ $(function () {
         let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + days + ' days)');
 
         listElement.append(clickButton);
+        listElement.append($('<span>').attr('data-id', storedGames[i].id).attr('class', 'remove-button button is-hoverable').text('X'));
         gameList.append(listElement);
         savedSection.append(gameList);
+
       }
-      
     } else return;
 
+    $('.remove-button').click(removeFavorite);
     $('[id*="favorite"]').click(favoriteGame);
-
-  console.log(storedGames)
   }
 
-   
+  function removeFavorite (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+
+    let removeID = $(this).siblings().data('id');
+    for (i=0; i < storedGames.length; i++) {
+      if (removeID == storedGames[i].gameID) {
+        storedGames.splice(i, 1);
+        break;
+      };
+    };
+    
+    localStorage.setItem('gameData', JSON.stringify(storedGames));
+    retrieveGameData ();
+    
+    console.log(storedGames);
+  };
+
   retrieveGameData (); // Call function to pull data from local storage
   // diffDay ();
 });
