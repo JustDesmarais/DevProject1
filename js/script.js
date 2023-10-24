@@ -83,9 +83,11 @@ $(function () {
   // Function following click of final game option
   function selectGame (e) {
     e.preventDefault();
+    e.stopPropagation();
 
     let finalURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
 
+    $('#description').empty();
     $('#search-results').slideToggle().empty();
     $('#gameInput').val('');
     $('#search-button').toggleClass('is-hidden');
@@ -130,8 +132,8 @@ $(function () {
     event.stopPropagation();
     event.preventDefault();
 
-    let gameID = $('#add-button').data('id');
-    let gameRelease = $('#released').data('release');
+    let gameID = $('#add-button')[0].dataset.id;
+    let gameRelease = $('#released')[0].dataset.release;
     let gameName = $('h3').text();
 
     storedGames.push({gameID, gameRelease, gameName});
