@@ -21,13 +21,177 @@
     list-style-type: none;
   }
 
-  /* .hidden {
+
+  .love {
+    color: red;
+  }
+
+  .hidden {
     display: none;
   }
 
   .active {
     display: block;
-  } */
+  }
+
+
+  .fancy:hover > .letter:nth-child(2){
+    display: inline-block;
+    transform: rotate(-1450deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(3){
+    display: inline-block;
+    transform: rotate(-380deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(4){
+    display: inline-block;
+    transform: rotate(700deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(5){
+    display: inline-block;
+    transform: rotate(-360deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(6){
+    display: inline-block;
+    transform: rotate(780deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(7){
+    display: inline-block;
+    transform: rotate(-900deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(8){
+    display: inline-block;
+    transform: rotate(700deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(9){
+    display: inline-block;
+    transform: translate(-20%, 20%) rotate(-700deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(10){
+    display: inline-block;
+    transform: rotate(-17000deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy:hover > .letter:nth-child(11){
+    display: inline-block;
+    transform: rotate(780deg);
+    transition-duration: 800ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(1){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(2){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(3){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(4){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(5){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(6){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(7){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(8){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(9){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .fancy-letter:hover > .letters:nth-child(10){
+    display: inline-block;
+    transform: rotate(360deg);
+    transition-duration: 1000ms;
+  }
+
+  .header-text {
+    color: #FFDF00;
+  }
+
+  .search-color {
+    background-color: #3C2A29CC;
+    color: #FFDF00;
+    border-radius: 10px;
+  }
+
+  .favorite-color {
+    background-color: #3C2A29CC;
+    color: #FFDF00;
+    border-radius: 10px;
+  }
+
+  .gold-outline {
+    outline-style: solid;
+    outline-color: gold;
+  }
+
+  .search-background {
+    background-color: #FF7300;
+  }
+
+  .favorite-background {
+    background-color: #FF7300;
+  }
+
+  .content-background {
+    background-color: #FF7300;
+    color: white;
+  }
+
+  .footer-background {
+    background-color: #3C2A29CC;
+  }
 
   #search-results {
     display: none;
@@ -36,6 +200,13 @@
     align-items: center;
   }
 
-  .savedButton {
-    
+  #header-img {
+    background-color: #3C2A29CC;
   }
+
+  #color {
+    background-color: #3C2A29CC;
+  }
+  
+
+  
