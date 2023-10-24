@@ -17,11 +17,12 @@ fetch('https://api.rawg.io/api/games?key=7aa60114ee68416ca8c8f9423e2bd0d3&search
             console.error(err);
         });
 
+
 let storedGames = []; //array for stored game data
 
 // js code wrapper to ensure everything loads properly
 $(function () {
-
+  
   // function updateTime() {
   //   var today = dayjs();
   //   $('#timer').text(today.format('dddd, MMMM D, YYYY h:mm:ss A'));
@@ -29,30 +30,21 @@ $(function () {
   // }
   // setInterval(updateTime, 1000);
 
-
-  /**function to pull game data from local storage
-   * CAN BE BASE FOR DYNAMICALLY GENERATED GAME LIST
-   */
-  // function retrieveGameData () {
-  //   let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
-
-
-  //   if (retrievedGames !== null) {
-  //     storedGames = retrievedGames;
-      
-  //   } else return;
-
-  //   console.log(storedGames)
-  // }
-
-  
-  // Event listener and function for searching to pull in game options for user
-  $('#search-button').click(function (e) {
+    
+  // Event listeners and function for searching to pull in game options for user
+  $('#search-button').click(handleSearch);
+  $('#search-form').submit(handleSearch);
+    
+  function handleSearch(e) {
     e.preventDefault();
     let apiURL = 'https://api.rawg.io/api/games?key=7aa60114ee68416ca8c8f9423e2bd0d3&search=' + $('input').val();
     $('input').val('');
 
     console.log(apiURL);
+
+    $('#search-button').toggleClass('is-hidden');
+    $('#cancel-button').toggleClass('is-hidden');
+
     fetch(apiURL)
         .then (function (response) {
             return response.json();
@@ -70,27 +62,39 @@ $(function () {
               $('#search-results').append(gameOption);              
             };
 
-            $('#search-results').slideToggle('slow'); // Show search list
+            $('#search-results').slideToggle('fast'); // Show search list
             $('[id*="game-selector"]').click(selectGame); // Add event listener to generated buttons
         })
         .catch(err => {
             console.error(err);
         });
-    });
-
+    };
+        
+  $('#cancel-button').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
     
+    $('#search-results').slideToggle().empty();
+    $('#gameInput').val('');
+    $('#search-button').toggleClass('is-hidden');
+    $('#cancel-button').toggleClass('is-hidden');
+  })
 
   // Function following click of final game option
   function selectGame (e) {
     e.preventDefault();
+    e.stopPropagation();
 
-    let apiURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
-    $('#search-results').slideToggle('fast'); 
+    let finalURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
 
+    $('#description').empty();
+    $('#search-results').slideToggle().empty();
+    $('#gameInput').val('');
+    $('#search-button').toggleClass('is-hidden');
+    $('#cancel-button').toggleClass('is-hidden');
+    $('#add-button').prop('disabled', false);
 
- 
-
-    fetch(apiURL)
+    fetch(finalURL)
         .then (function (response) {
             return response.json();
         })
@@ -101,6 +105,7 @@ $(function () {
             let targetDate = dayjs(data.released);
             let today = dayjs().format('YYYY-MM-DD');
             let days = Math.abs(targetDate.diff(today, 'day'));
+
 
             function dayAppend () {
               if (dayjs().isAfter(targetDate)){
@@ -115,9 +120,9 @@ $(function () {
             $('h3').text(gameName).attr('class', 'active has-text-centered is-size-3 has-text-weight-bold');
             $('#game-img').attr('src', data.background_image).attr('class', 'active');
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
-            $('#released').attr('class', 'active').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
+            $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').attr('class', 'active').append(description.shift() + '</p>');
-            $('#add-button').attr('class', 'button fa-solid fa-heart active');
+            $('#add-button').attr('class', 'button fa-solid fa-heart active').attr('data-id', data.id);
             $('#timer').attr('class', 'has-text-centered is-size-4 has-text-weight-medium').append(dayAppend);
 
             
@@ -144,46 +149,130 @@ $(function () {
   
         });
 
+
         })
         .catch(err => {
             console.error(err);
         });
+  };
+ 
+  // function to add elements to favorite list
+  $('#add-button').click(function (event) {    
+    event.stopPropagation();
+    event.preventDefault();
 
-
-
-       
-
-
-      
-
-    // variables and function to add data to local storage
-    let gameID = $(this).data('id');
-    let gameRelease = $(this).data('release');
-    let gameName = $(this).text();
+    let gameID = $('#add-button')[0].dataset.id;
+    let gameRelease = $('#released')[0].dataset.release;
+    let gameName = $('h3').text();
 
     storedGames.push({gameID, gameRelease, gameName});
     localStorage.setItem('gameData', JSON.stringify(storedGames));
-    document.getElementById("gameInput").value = "";
-    console.log(storedGames);
+    
+    console.log(storedGames);  
     retrieveGameData();
-    $('#search-results').empty();
-  }
+  });    
+
+  function favoriteGame (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    let favoriteURL = 'https://api.rawg.io/api/games/' + $(this).data('id') + '?key=7aa60114ee68416ca8c8f9423e2bd0d3';
+    console.log(favoriteURL);
+
+    $('#description').empty();
+    $('#add-button').prop('disabled', true);
+
+    fetch(favoriteURL)
+        .then (function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            let description = data.description.split('</p>');
+
+            let targetDate = dayjs(data.released);
+            let today = dayjs().format('YYYY-MM-DD');
+            let days = Math.abs(targetDate.diff(today, 'day'));
 
 
+            if (dayjs().isAfter(targetDate)) {
+              $('#timer').text('Released: ' + days + ' days ago');
+            } else if (dayjs().isSame(targetDate)) {
+              $('#timer').text('Released: ' + ' TODAY!');
+            } else {
+              $('#timer').text(days + ' Days Until Release!');
+            } 
+          
+
+            $('h3').text(data.name);
+            $('#game-img').attr('src', data.background_image);
+            $('#genre').text('Genre: ' + data.genres[0].name);
+            $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
+            $('#description').append(description.shift() + '</p>');
+
+        });
+  };
+
+  /**function to pull game data from local storage
+     * CAN BE BASE FOR DYNAMICALLY GENERATED GAME LIST
+     */
   function retrieveGameData () {
+    $('.savedGames').empty();
     let retrievedGames = JSON.parse(localStorage.getItem('gameData'));
-
 
     if (retrievedGames !== null) {
       storedGames = retrievedGames;
-      
+
+      for (i = 0; i < storedGames.length; i++) {
+        const savedSection = $('.savedGames');
+        const gameList = $('<div>');
+        const listElement = $('<li>');
+        let targetDate = dayjs(storedGames[i].gameRelease);
+        let today = dayjs().format('YYYY-MM-DD');
+        let days = Math.abs(targetDate.diff(today, 'day'));
+        let trackedDays = '';
+
+        if (dayjs().isAfter(targetDate)) {
+          trackedDays = 'Released: ' + days + ' days ago';
+        } else if (dayjs().isSame(targetDate)) {
+          trackedDays = 'Released: ' + ' TODAY!';
+        } else {
+          trackedDays = days + ' Days Until Release!';
+        } 
+
+        let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3 is-size-6 has-text-weight-bold').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + trackedDays + ')');
+
+        listElement.append(clickButton);
+        listElement.append($('<span>').attr('data-id', storedGames[i].id).attr('class', 'remove-button button is-size-7').text('X'));
+        gameList.append(listElement);
+        savedSection.append(gameList);
+
+      }
     } else return;
 
-    console.log(storedGames)
+    $('.remove-button').click(removeFavorite); //event listener for remove buttons
+    $('[id*="favorite"]').click(favoriteGame); //event listener for clicking on game in favorite section
   }
 
+  function removeFavorite (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
 
-   
+    let removeID = $(this).siblings().data('id');
+    for (i=0; i < storedGames.length; i++) {
+      if (removeID == storedGames[i].gameID) {
+        storedGames.splice(i, 1);
+        break;
+      };
+    };
+
+    localStorage.setItem('gameData', JSON.stringify(storedGames));
+    retrieveGameData ();
+    
+    console.log(storedGames);
+  };
+
   retrieveGameData (); // Call function to pull data from local storage
   // diffDay ();
 });
