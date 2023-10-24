@@ -97,23 +97,30 @@ $(function () {
         .then(function (data) {
             console.log(data);
             let description = data.description.split('</p>');
-            let targetDate = data.released;
-            // var today = dayjs().format('YYYY-MM-DD ');
-            // let days = targetDate.diff(today, 'days');
+
+            let targetDate = dayjs(data.released);
+            let today = dayjs().format('YYYY-MM-DD');
+            let days = Math.abs(targetDate.diff(today, 'day'));
+
+            function dayAppend () {
+              if (dayjs().isAfter(targetDate)){
+                $('#timer').append('Released: ' + days + ' ago');
+              } else if (dayjs().isSame(targetDate)) {
+                $('#timer').append('Released: ' + ' TODAY!');
+              } else {
+                $('#timer').append(days + ' Days Until Release!');
+              } 
+            }
 
             $('h3').text(gameName);
             $('#game-img').attr('src', data.background_image);
             $('#genre').text('Genre: ' + data.genres[0].name);
             $('#released').text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').append(description.shift() + '</p>');
-            $('#timer').append(targetDate);
+            $('#timer').append(dayAppend);
 
-
-
-        })
-        .catch(err => {
-            console.error(err);
-        });
+            
+          console.log(dayAppend);
 
 
         $('#add-button').click(function addGamesList (event) {
@@ -126,13 +133,21 @@ $(function () {
           clickButton.setAttribute('class', 'button is-secondary is-medium m-3');
 
           // var gameSaved = JSON.parse(localStorage.getItem('gameData'));
+
           
-          listElement.appendChild(clickButton).innerHTML = gameName + targetDate;
+          listElement.appendChild(clickButton).innerHTML = gameName + ' (' + days + ')';
           gameList.appendChild(listElement);
           savedSection.appendChild(gameList);
           
   
         });
+
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+
 
        
 
