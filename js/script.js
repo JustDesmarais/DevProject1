@@ -118,7 +118,7 @@ $(function () {
               } 
             }
 
-            $('h3').text(data.name).attr('class', 'active has-text-centered is-size-3 has-text-weight-bold');
+            $('h3').text(data.name).attr('class', 'active');
             $('#game-img').attr('src', data.background_image).attr('class', 'active');
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));

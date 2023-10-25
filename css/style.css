@@ -11,9 +11,15 @@
     box-sizing: border-box;
   }
 
+  .column.is-3, .column.is-6 {
+    align-self: center;
+    text-align: center;
+  }
+
   .name-size {
     font-weight: bold;
     font-size: 2rem;
+    
   }
 
   .savedGames {
@@ -39,7 +45,8 @@
   }
 
   .active {
-    display: block;
+    display: inline-flex;
+    
   }
 
 
@@ -207,14 +214,41 @@
     width: 100%;
   }
 
+  li.fav-button {
+    justify-content: center;
+  }
+
   .remove-button {
-    width: 50%;
+    width: 15%;
+    margin: .25rem;
   }
 
   #add-button {
     text-align: center;
     align-items: center;
     align-content: center;
+  }
+
+  #game-img {
+    padding: 3%;
+  }
+
+  #genre {
+    padding: 3%;
+    font-weight: bold;
+  }
+
+  #released {
+    padding: 3%;
+    font-weight: bold;
+  }
+
+  #description {
+    padding: 3%;
+  }
+
+  #listSaved.savedGames {
+    justify-content: center;
   }
 
   #search-results {
@@ -231,6 +265,7 @@
   #color {
     background-color: #3C2A29CC;
   }
+
 
   
 
