@@ -9,10 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="./css/style.css" />
-  <title>Project #1</title>
+  <title>Monitor the Monitor</title>
 </head>
 
+
 <body id="body-color">
+    <!-- header section with a png image -->
     <header class="container section is-size-1 has-text-centered box" id="header-img">
         <div class="game-folder">
             <img src="/Pictures/pc-game.png" alt="game-icon">
@@ -26,6 +28,7 @@
 
                 <div class="box search-background">
                     <div>
+                        <!-- title for search game to give it transform effect -->
                     <h2 class="fancy-letter is-size-2 search-color has-text-centered"></i>
                         <span class="letters">S</span>
                         <span class="letters">E</span>
@@ -41,24 +44,27 @@
                     </div>
                     </h2>
                     <form>
-
+                            
                         <div class="field">
-                            <label class="label is-size-5">Game Name </label>
+                            <label class="label is-size-5">Game Name</label>
                                 <div class="control">
                                     <input type="text" name="" id="gameInput" placeholder="E.g. Call of Duty, Dark Souls, Final Fantasy" class="input gold-outline">
                                 </div>
                                     <div id="search-results"> 
                                     </div>
                                 <div class="control has-text-centered">
-
-                                    <button id="search-button" type="button" class="is-secondary is-medium mt-3"><i class="fa-solid fa-magnifying-glass fa-beat"></i></button>
+                                        <!-- search button -->
+                                    <button id="search-button" type="button" class="button is-secondary is-medium mt-3"><i class="fa-solid fa-magnifying-glass fa-beat"></i></button>
+                                    <!-- cancel button -->
                                      <button id="cancel-button" type="button" class="is-secondary is-medium mt-3 is-hidden">Cancel</button>
                                 </div>
                         </div>
                     </form>
                 </div>
 
+                <!-- Favorite section with saved games -->
                 <div class="box is-4 favorite-background">
+                    <!-- favorite span to give letters effect -->
                    <h2 class="fancy has-text-centered favorite-color game-saved is-size-3"><i class="fa-solid fa-heart fa-beat-fade pr-5" style="color: #9c2525;"></i>
                     <span class="letter">F</span>
                     <span class="letter">A</span>
@@ -70,7 +76,7 @@
                     <span class="letter">E</span>
                     <span class="letter">S</span>
                     <i class="fa-solid fa-heart fa-beat-fade pl-5" style="color: #9c2525;"></i></h2>
-
+                        <!-- saved game list section -->
                    <div class="savedGames" id="listSaved">
 
                    </div>
@@ -90,14 +96,15 @@
                             <h4 class="has-text-centered" id="timer"></h4>
                         </div>
                         <div class="column is-3">
-                            <button id="add-button" type="button" class="hidden">Add to favorites</button>
+                            <!-- add to favorites button -->
+                            <button id="add-button" type="button" class="hidden">❤ Add to favorites</button>
 
                         </div>
                         
                     </div>
         
                     <div class="columns"> <!--game image & description - Data to fill in dynamically through API and JS-->
-                        <div class="column">
+                        <div class="column image-center">
 
                             <img src="" alt="game image" id="game-img" class="hidden">
 
@@ -114,8 +121,14 @@
 
            
         </section>
+
+        <!-- footer section for our infos -->
     <footer class="footer-background">
-        <p> Hello we are here</p>
+        <h5>Check out our other Github repos</h5>
+        <div class="footer-github">
+        <a href="https://github.com/JustDesmarais">Justin Desmarais &nbsp; &nbsp; &nbsp;</a>
+        <a href="https://github.com/Kthao29">Keng Thao</a>
+        </div>
     </footer>
 
     </main>
@@ -128,3 +141,4 @@
     ></script>
     <script src="./js/script.js"></script>
 </body>
+</html>
