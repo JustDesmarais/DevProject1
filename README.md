@@ -34,8 +34,8 @@ THEN I am presented with an updated favorites list that excludes the game I just
 ```
 ### Demo
 
-![Demo video of the Monitor the Montior web app](/Pictures/MtM%20Demo.gif)
+![Demo video of the Monitor the Montior web app](./Pictures/MtM%20Demo.gif)
 
 ### Screenshot
 
-![screenshot of the Monitor the Monitor web app](/Pictures/MtM%20Screenshot.png)
+![screenshot of the Monitor the Monitor web app](./Pictures/MtM%20Screenshot.png)
