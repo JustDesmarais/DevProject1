@@ -17,8 +17,16 @@
   }
 
   .savedGames {
+    display: flex;
+    flex-wrap: wrap;
     text-align: center;
     list-style-type: none;
+  }
+
+  .fav-button {
+    display: flex;
+    flex-wrap: wrap;
+    padding: .5rem;
   }
 
 
@@ -193,6 +201,22 @@
     background-color: #3C2A29CC;
   }
 
+  .button {
+    white-space: wrap;
+    height: auto;
+    width: 100%;
+  }
+
+  .remove-button {
+    width: 50%;
+  }
+
+  #add-button {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+
   #search-results {
     display: none;
     text-align: center;
@@ -207,6 +231,7 @@
   #color {
     background-color: #3C2A29CC;
   }
+
   
 
   
