@@ -101,7 +101,7 @@ $(function () {
             let days = Math.abs(targetDate.diff(today, 'day'));
 
 
-            function dayAppend () {
+            function dayAppend () { //adds release date text to main game card
               if (dayjs().isAfter(targetDate)){
                 $('#timer').append('Released: ' + days + ' Days Ago');
               } else if (dayjs().isSame(targetDate)) {
@@ -227,6 +227,7 @@ $(function () {
     $('[id*="favorite"]').click(favoriteGame); //event listener for clicking on game in favorite section
   }
 
+  //function to remove item from favorites list
   function removeFavorite (event) {
     event.preventDefault();
     event.stopPropagation();
@@ -247,5 +248,4 @@ $(function () {
   };
 
   retrieveGameData (); // Call function to pull data from local storage
-  // diffDay ();
 });

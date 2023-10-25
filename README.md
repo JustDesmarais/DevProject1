@@ -32,5 +32,10 @@ THEN I am again presented with the name, genre, release dte, and descritpion for
 WHEN I click on the remove button
 THEN I am presented with an updated favorites list that excludes the game I just removed
 ```
+### Demo
 
+![Demo video of the Monitor the Montior web app](/Pictures/MtM%20Demo.gif)
 
+### Screenshot
+
+![screenshot of the Monitor the Monitor web app](/Pictures/MtM%20Screenshot.png)
