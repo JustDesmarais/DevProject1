@@ -25,7 +25,7 @@ $(function () {
     
   // Event listeners and function for searching to pull in game options for user
   $('#search-button').click(handleSearch);
-  $('#gameInput').submit(handleSearch);
+
     
   function handleSearch(e) {
     e.preventDefault();
