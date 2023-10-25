@@ -1,14 +1,15 @@
-:root {
-    --primary: #ccdad1;
-    --secondary: #9caea9;
-    --tertiary: #788585;
-    --light-dark: #6f6866;
-    --dark: #38302e;
-    --border-radius: .3rem;
-  }
-  
   * {
     box-sizing: border-box;
+  }
+
+  span {
+    font-size: 1rem;
+    justify-self: center;
+    justify-items: center;
+  }
+
+  .game-folder {
+    display: inline-flex;
   }
 
   .column.is-3, .column.is-6 {
@@ -33,11 +34,6 @@
     display: flex;
     flex-wrap: wrap;
     padding: .5rem;
-  }
-
-
-  .love {
-    color: red;
   }
 
   .hidden {
@@ -170,19 +166,36 @@
     transition-duration: 1000ms;
   }
 
+  .fancy-letter {
+    text-align: center;
+    vertical-align: middle;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    align-items: center;
+  }
+
+
   .header-text {
-    color: #FFDF00;
+    color: black;
+    margin-left: .50rem;
   }
 
   .search-color {
-    background-color: #3C2A29CC;
-    color: #FFDF00;
+    background-color: #1A120B;
+    color: white;
     border-radius: 10px;
   }
 
+  .label {
+    color: white;
+  }
+
   .favorite-color {
-    background-color: #3C2A29CC;
-    color: #FFDF00;
+    background-color: #1A120B;
+    color: white;
     border-radius: 10px;
   }
 
@@ -192,26 +205,27 @@
   }
 
   .search-background {
-    background-color: #FF7300;
+    background-color: #3C2A21;
   }
 
   .favorite-background {
-    background-color: #FF7300;
+    background-color: #3C2A21;
   }
 
   .content-background {
-    background-color: #FF7300;
+    background-color: #3C2A21;
     color: white;
   }
 
   .footer-background {
-    background-color: #3C2A29CC;
+    background-color: #3C2A21;
   }
 
   .button {
     white-space: wrap;
     height: auto;
     width: 100%;
+    background-color: #D5CEA3;
   }
 
   li.fav-button {
@@ -259,11 +273,11 @@
   }
 
   #header-img {
-    background-color: #3C2A29CC;
+    background-color: #D5CEA3;
   }
 
-  #color {
-    background-color: #3C2A29CC;
+  #body-color {
+    background-color: #1A120B;
   }
 
 

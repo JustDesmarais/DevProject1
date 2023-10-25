@@ -110,7 +110,7 @@ $(function () {
 
             function dayAppend () {
               if (dayjs().isAfter(targetDate)){
-                $('#timer').append('Released: ' + days + ' Days ago');
+                $('#timer').append('Released: ' + days + ' Days Ago');
               } else if (dayjs().isSame(targetDate)) {
                 $('#timer').append('Released: ' + ' TODAY!');
               } else {
@@ -177,7 +177,7 @@ $(function () {
 
 
             if (dayjs().isAfter(targetDate)) {
-              $('#timer').text('Released: ' + days + ' days ago');
+              $('#timer').text('Released: ' + days + ' Days Ago');
             } else if (dayjs().isSame(targetDate)) {
               $('#timer').text('Released: ' + ' TODAY!');
             } else {
@@ -213,7 +213,7 @@ $(function () {
         let trackedDays = '';
 
         if (dayjs().isAfter(targetDate)) {
-          trackedDays = 'Released: ' + days + ' days ago';
+          trackedDays = 'Released: ' + days + ' Days Ago';
         } else if (dayjs().isSame(targetDate)) {
           trackedDays = 'Released: ' + ' TODAY!';
         } else {
