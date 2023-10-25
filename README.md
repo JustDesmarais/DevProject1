@@ -1,8 +1,17 @@
-# DevProject1
+# Monitor the Monitor
 
-{Insert Name} is an application to help users track their most highly anticipated upcoming video games!  Not only does it allow users to track the release dates of yet-to-be released games, but also functionally serves as a personal to-do list of games they would like to play.
+[Monitor the Monitor](https://justdesmarais.github.io/Monitor-the-Monitor/) is an application to help users track their most highly anticipated upcoming video games!  Not only does it allow users to track the release dates of yet-to-be released games, but also functionally serves as a personal to-do list of games they would like to play.
 
-Users can search for games and add them to their personal Favorites List for easy recall in later uses. If a user wants to remove the game from their Favorites List, all they have to do is click the remove button (X) to have it taken off of their list
+Users can search for games and add them to their personal Favorites List for easy recall in later uses. If a user wants to remove the game from their Favorites List, all they have to do is click the remove button (X) to have it taken off of their list.
+
+The application was built by [Justin Desmarais](https://github.com/JustDesmarais) and [Keng Thao](https://github.com/Kthao29) using the following technologies:
+
+- Bulma CSS Library for design
+- JQuery JavaScript Library for JavaScript functions
+- DayJS API to pull and format date information
+- RAWG.io API to pull video game information from the RAWG.io database
+
+https://justdesmarais.github.io/Monitor-the-Monitor/
 
 ## User Story
 
