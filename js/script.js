@@ -22,14 +22,6 @@ let storedGames = []; //array for stored game data
 
 // js code wrapper to ensure everything loads properly
 $(function () {
-  
-  // function updateTime() {
-  //   var today = dayjs();
-  //   $('#timer').text(today.format('dddd, MMMM D, YYYY h:mm:ss A'));
-  //   const currentDate = dayjs().format('dddd, MMMM D, YYYY h:mm:ss A');
-  // }
-  // setInterval(updateTime, 1000);
-
     
   // Event listeners and function for searching to pull in game options for user
   $('#search-button').click(handleSearch);
@@ -69,7 +61,8 @@ $(function () {
             console.error(err);
         });
     };
-        
+    
+    //cancel button for search
   $('#cancel-button').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -123,7 +116,7 @@ $(function () {
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').attr('class', 'active').append(description.shift() + '</p>');
-            $('#add-button').attr('class', 'fa-solid fa-heart active').attr('data-id', data.id);
+            $('#add-button').attr('class', 'active').attr('data-id', data.id);
             $('#timer').attr('class', 'has-text-centered is-size-4 has-text-weight-medium').append(dayAppend);
 
             
@@ -175,7 +168,7 @@ $(function () {
             let today = dayjs().format('YYYY-MM-DD');
             let days = Math.abs(targetDate.diff(today, 'day'));
 
-
+            //dayjs difference to get the amount of days
             if (dayjs().isAfter(targetDate)) {
               $('#timer').text('Released: ' + days + ' Days Ago');
             } else if (dayjs().isSame(targetDate)) {
@@ -190,7 +183,7 @@ $(function () {
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').attr('class', 'active').append(description.shift() + '</p>');
-            $('#add-button').attr('class', 'fa-solid fa-heart active').attr('data-id', data.id);
+            $('#add-button').attr('class', 'active').attr('data-id', data.id);
             
         });
   };

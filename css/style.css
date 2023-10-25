@@ -1,3 +1,4 @@
+  /* default css */
   * {
     box-sizing: border-box;
   }
@@ -10,6 +11,22 @@
 
   html {
     background-color: #1A120B;
+  }
+
+  h3 {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  h5 {
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    margin: 30px;
+  }
+
+  li.fav-button {
+    justify-content: center;
   }
   
   .game-folder {
@@ -39,16 +56,17 @@
     flex-wrap: wrap;
     padding: .5rem;
   }
-
+/* hide unwanted info on page */
   .hidden {
     display: none;
   }
-
+/* make wanted info to appear on page */
   .active {
     display: inline-flex;
     
   }
 
+  /* hover section to make the letters rotate */
 
   .fancy:hover > .letter:nth-child(2){
     display: inline-block;
@@ -197,6 +215,7 @@
     color: white;
   }
 
+
   .favorite-color {
     background-color: #1A120B;
     color: white;
@@ -223,6 +242,14 @@
 
   .footer-background {
     background-color: #3C2A21;
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+  }
+
+  .image-center {
+    text-align: center;
+    justify-content: center;
   }
 
   .button {
@@ -232,19 +259,22 @@
     background-color: #D5CEA3;
   }
 
-  li.fav-button {
-    justify-content: center;
-  }
-
   .remove-button {
     width: 15%;
     margin: .25rem;
   }
 
+  .footer-github {
+    display: flex;
+    justify-content: center;
+  }
+
   #add-button {
-    text-align: center;
-    align-items: center;
-    align-content: center;
+   background-color: #D5CEA3;
+  }
+
+  #add-button:hover {
+    cursor: pointer;
   }
 
   #game-img {
