@@ -123,7 +123,7 @@ $(function () {
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').attr('class', 'active').append(description.shift() + '</p>');
-            $('#add-button').attr('class', 'button fa-solid fa-heart active').attr('data-id', data.id);
+            $('#add-button').attr('class', 'fa-solid fa-heart active').attr('data-id', data.id);
             $('#timer').attr('class', 'has-text-centered is-size-4 has-text-weight-medium').append(dayAppend);
 
             
@@ -190,7 +190,7 @@ $(function () {
             $('#genre').text('Genre: ' + data.genres[0].name).attr('class', 'active');
             $('#released').attr('class', 'active').attr('data-release', data.released).text('Release Date: ' + dayjs(data.released).format('MMMM D, YYYY'));
             $('#description').attr('class', 'active').append(description.shift() + '</p>');
-            $('#add-button').attr('class', 'button fa-solid fa-heart active').attr('data-id', data.id);
+            $('#add-button').attr('class', 'fa-solid fa-heart active').attr('data-id', data.id);
             
         });
   };
@@ -220,10 +220,10 @@ $(function () {
           trackedDays = days + ' Days Until Release!';
         } 
 
-        let clickButton = $('<button>').attr('class', 'button is-secondary is-medium m-3 is-size-6 has-text-weight-bold').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + trackedDays + ')');
+        let clickButton = $('<button>').attr('class', 'button ').attr('data-id', storedGames[i].gameID).attr('id', 'favorite' + [i]).text(storedGames[i].gameName + ' (' + trackedDays + ')');
 
-        listElement.append(clickButton);
-        listElement.append($('<span>').attr('data-id', storedGames[i].id).attr('class', 'remove-button button is-size-7').text('X'));
+        listElement.append(clickButton).attr('class', 'fav-button');
+        listElement.append($('<span>').attr('data-id', storedGames[i].id).attr('class', 'remove-button button is-size-7 ').text('X'));
         gameList.append(listElement);
         savedSection.append(gameList);
 
